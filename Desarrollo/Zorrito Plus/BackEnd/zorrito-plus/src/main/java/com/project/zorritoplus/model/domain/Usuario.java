@@ -21,6 +21,8 @@ public class Usuario {
     private String celular;
     private String username;
     private String password;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Rol rol;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     private List<Perfil> perfiles;
 
