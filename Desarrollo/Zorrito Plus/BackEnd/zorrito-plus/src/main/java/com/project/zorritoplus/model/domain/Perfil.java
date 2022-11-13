@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @Table(name = "perfiles")
 public class Perfil {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private BigDecimal precio;
     @ManyToOne(fetch = FetchType.LAZY)
