@@ -8,10 +8,13 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.2",
+    "sass-loader": "^13.2.0",
     "vue": "^3.2.41"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.2",
+    "node": "^19.1.0",
+    "sass": "^1.56.1",
     "vite": "^3.1.8"
   }
 }
