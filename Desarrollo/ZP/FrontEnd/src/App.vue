@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
-  <header class="position-sticky top-0 left-0 bg-black z-index-3 p-0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <header class="position-sticky top-0 left-0 z-index-3 p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid py-3 px-4">
         <a
           class="navbar-brand my-0 me-0 p-0 ms-md-3 ms-lg-5"
@@ -76,6 +76,9 @@
   </header>
 </template>
 <style lang="scss">
+header {
+  background-image: linear-gradient(to bottom right, black 50%, #040c51 100%);
+}
 .logoIcon {
   max-width: 8rem;
 }
