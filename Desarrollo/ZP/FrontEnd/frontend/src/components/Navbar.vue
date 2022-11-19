@@ -3,14 +3,11 @@
   <header class="position-sticky top-0 left-0 z-index-3 p-0">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid py-3 px-4">
-        <a
-          class="navbar-brand my-0 me-0 p-0 ms-md-3 ms-lg-5"
-          href="./inicio.html"
-        >
+        <a class="navbar-brand my-0 me-0 p-0 ms-md-3 ms-lg-5" href="">
           <img
-            src="./assets/images/zorrito-icon.svg"
+            src="../assets/images/zorrito-icon.svg"
             alt="Ícono de Zorrito Plus"
-            class="logoIcon"
+            class="logo-icon"
           />
         </a>
         <button
@@ -38,19 +35,25 @@
         >
           <ul class="navbar-nav d-lg-flex align-items-center pt-4 pt-lg-0">
             <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
-              <a class="nav-link active fs-5 p-0" aria-current="page" href="#"
-                >INICIO</a
+              <router-link
+                to="/"
+                class="nav-link active fs-5 p-0 fw-bold text-uppercase"
+                >Inicio</router-link
               >
             </li>
             <li class="nav-item py-2 py-lg-0 px-0 px-lg-4">
-              <a class="nav-link active fs-5 p-0" href="#">SERVICIOS</a>
+              <router-link
+                to="/servicios"
+                class="nav-link active fs-5 p-0 fw-bold text-uppercase"
+                >Servicios</router-link
+              >
             </li>
             <li class="nav-item pt-2 pb-0 py-lg-0 px-0 ps-lg-4">
               <a class="nav-link active fs-5 p-0" href="#"
                 ><button
-                  class="bg-black text-white border-white rounded-4 py-2 px-3"
+                  class="bg-black text-white border-white rounded-4 py-2 px-3 fw-bold text-uppercase"
                 >
-                  INICIAR SESIÓN
+                  Iniciar sesión
                   <svg
                     width="25"
                     height="25"
@@ -79,7 +82,7 @@
 header {
   background-image: linear-gradient(to bottom right, black 50%, #040c51 100%);
 }
-.logoIcon {
+.logo-icon {
   max-width: 8rem;
 }
 * {
