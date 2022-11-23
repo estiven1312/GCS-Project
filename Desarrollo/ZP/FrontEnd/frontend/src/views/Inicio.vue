@@ -24,32 +24,46 @@ export default {
       </p>
       <div class="d-flex pt-2 justify-content-center flex-wrap">
         <StreamingPlatformIcon
-          :Color="'#ff0000'"
+          :Color="'#f84440'"
           :ImageUrl="'netflix-logo.png'"
+          :Width="'8'"
+          class="m-3"
         />
         <StreamingPlatformIcon
           :Color="'#009FF7'"
           :ImageUrl="'movistar-logo.png'"
+          :Width="'8'"
+          class="m-3"
         />
         <StreamingPlatformIcon
           :Color="'#05009D'"
           :ImageUrl="'disneyplus-logo.png'"
+          :Width="'8'"
+          class="m-3"
         />
         <StreamingPlatformIcon
           :Color="'#FF5400'"
           :ImageUrl="'starplus-logo.png'"
+          :Width="'8'"
+          class="m-3"
         />
         <StreamingPlatformIcon
           :Color="'#9200BB'"
           :ImageUrl="'hbomax-logo.png'"
+          :Width="'8'"
+          class="m-3"
         />
         <StreamingPlatformIcon
-          :Color="'#00DBFF'"
+          :Color="'#D0009C'"
           :ImageUrl="'primevideo-logo.png'"
+          :Width="'8'"
+          class="m-3"
         />
         <StreamingPlatformIcon
           :Color="'#18D860'"
           :ImageUrl="'spotify-logo.png'"
+          :Width="'8'"
+          class="m-3"
         />
       </div>
     </div>
