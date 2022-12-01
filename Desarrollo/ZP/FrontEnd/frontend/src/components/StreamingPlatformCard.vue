@@ -4,7 +4,6 @@ export default {
   name: "StreamingPlatformCard",
   props: {
     Color: String,
-    ColorShadow: String,
     ImageUrl: String,
     Precio: String,
     Width: String,
@@ -19,7 +18,7 @@ export default {
     class="card-streaming d-flex flex-column justify-items-center align-items-center"
     :style="{
       'background-color': Color,
-      'box-shadow': '-20px 30px 144px -19px ' + ColorShadow,
+      'box-shadow': '-20px 30px 144px -19px ' + Color + 'cc',
     }"
   >
     <StreamingPlatformIcon :Color="Color" :ImageUrl="ImageUrl" :Width="Width" />

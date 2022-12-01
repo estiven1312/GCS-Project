@@ -3,9 +3,12 @@
 html {
   font-size: 85%;
 }
+$form-select-focus-width: 0;
 $navbar-toggler-border-radius: 0;
 $navbar-toggler-focus-width: 0;
 $navbar-toggler-transition: none;
+$form-select-focus-border-color: white;
+$form-select-indicator: url("../images/flecha-desplegable.svg");
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 @include media-breakpoint-up(md) {
   html {
