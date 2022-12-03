@@ -6,6 +6,7 @@ export default {
     return {
       Color: String,
       ImageUrl: String,
+      Width: String,
     };
   },
   components: {

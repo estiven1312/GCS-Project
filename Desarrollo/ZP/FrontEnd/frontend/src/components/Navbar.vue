@@ -36,7 +36,7 @@ export default {
             class="logo-icon"
         /></router-link>
         <button
-          class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around ms-0 p-0 border-0 position-relative"
+          class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around ms-0 me-md-3 me-lg-5 p-0 border-0 position-relative"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -55,7 +55,7 @@ export default {
           ></span>
         </button>
         <div
-          class="collapse navbar-collapse justify-content-end my-0 ms-0 p-0 me-md-3 me-lg-5 p-0"
+          class="collapse navbar-collapse justify-content-end my-0 mx-0 p-0 mx-md-3 ms-lg-0 me-lg-5"
           id="navbarNav"
         >
           <ul class="navbar-nav d-lg-flex align-items-center pt-4 pt-lg-0">

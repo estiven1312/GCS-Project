@@ -1,12 +1,13 @@
 <script>
+import moment from "moment";
 export default {
   props: {
     Perfil: String,
     Plataforma: String,
     Correo: String,
     Contrasenia: String,
-    FechaInicio: String,
-    TiempoDuracion: String,
+    FechaInicio: Date,
+    TiempoDuracion: Number,
     PIN: String,
   },
   methods: {
@@ -46,6 +47,11 @@ export default {
           return "perfil-text--18D860";
       }
     },
+    format_date(value) {
+      if (value) {
+        return moment(String(value)).format("DD / MM / YYYY");
+      }
+    },
   },
 };
 </script>
@@ -68,69 +74,69 @@ export default {
         <div class="w-100">
           <div class="row">
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
               :class="perfilText()"
             >
               Plataforma:
             </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base">
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               {{ Plataforma }}
             </div>
           </div>
           <div class="row">
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
               :class="perfilText()"
             >
               Correo:
             </div>
             <div
-              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base"
+              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
             >
               {{ Correo }}
             </div>
           </div>
           <div class="row">
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
               :class="perfilText()"
             >
               Contraseña:
             </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base">
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               {{ Contrasenia }}
             </div>
           </div>
           <div class="row">
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
               :class="perfilText()"
             >
               Fecha de inicio:
             </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base">
-              {{ FechaInicio }}
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
+              {{ format_date(FechaInicio) }}
             </div>
           </div>
           <div class="row">
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
               :class="perfilText()"
             >
-              Tiempo de duración:
+              Tiempo de duración (en meses):
             </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base">
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               {{ TiempoDuracion }}
             </div>
           </div>
           <div class="row">
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
               :class="perfilText()"
             >
               PIN:
             </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base">
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               {{ PIN }}
             </div>
           </div>

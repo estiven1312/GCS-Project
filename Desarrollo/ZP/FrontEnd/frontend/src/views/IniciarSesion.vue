@@ -1,5 +1,5 @@
 <script>
-const tipoUsuario = "usuario";
+const tipoUsuario = "administrador";
 export default {
   name: "iniciarsesion",
   data() {
