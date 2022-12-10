@@ -1,14 +1,13 @@
 <script>
 import MetodosDePago from "@/components/MetodosDePago.vue";
-export default {
+import { defineComponent } from "vue";
+import { mapState, mapMutations } from "vuex";
+import moment from "moment";
+export default defineComponent({
   name: "solicitarperfilusuario",
   data: () => {
     return {
       solicitante: {
-        Nombres: "",
-        Apellidos: "",
-        TelefonoContacto: "",
-        DNI: "",
         Plataforma: "Netflix",
         FechaInicio: "",
         TiempoDuracion: 1,
@@ -16,7 +15,12 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState("autorizacion", ["usuarioAutorizado"]),
+    ...mapState("solicitudes", ["solicitudes"]),
+  },
   methods: {
+    ...mapMutations("solicitudes", ["addSolicitud"]),
     calcularTotalPagar() {
       let precio = 0;
       switch (this.$data.solicitante.Plataforma) {
@@ -44,17 +48,33 @@ export default {
       }
       return precio;
     },
+    agregarSolicitud() {
+      this.addSolicitud({
+        DNI: this.usuarioAutorizado.DNI,
+        Plataforma: this.solicitante.Plataforma,
+        FechaInicio: this.format_date(this.solicitante.FechaInicio),
+        TiempoDuracion: this.solicitante.TiempoDuracion.toString(),
+        CapturaPago: this.solicitante.CapturaPago,
+      });
+      alert("Se ha enviado la solicitud con éxito.");
+      this.$refs.formularioSolicitud.reset();
+    },
+    format_date(value) {
+      if (value) {
+        return moment(value).format("DD / MM / YYYY");
+      }
+    },
   },
   components: {
     MetodosDePago,
   },
-};
+});
 </script>
 <template>
   <div class="solicitarperfilusuario px-4">
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
       <div class="bg-dark p-5 panel-solicitar-perfil mx-auto">
-        <form>
+        <form ref="formularioSolicitud" @submit.prevent="agregarSolicitud">
           <h1
             class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0"
           >
@@ -67,7 +87,7 @@ export default {
               Nombres del solicitante:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              Estiven Salvador
+              {{ usuarioAutorizado.Nombres }}
             </div>
           </div>
           <div class="row">
@@ -79,7 +99,7 @@ export default {
             <div
               class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
             >
-              Hurtado Santos
+              {{ usuarioAutorizado.Apellidos }}
             </div>
           </div>
           <div class="row">
@@ -89,7 +109,7 @@ export default {
               Teléfono de contacto:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              989595621
+              {{ usuarioAutorizado.TelefonoContacto }}
             </div>
           </div>
           <div class="row">
@@ -99,7 +119,7 @@ export default {
               DNI:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              71208652
+              {{ usuarioAutorizado.DNI }}
             </div>
           </div>
           <div class="row">
