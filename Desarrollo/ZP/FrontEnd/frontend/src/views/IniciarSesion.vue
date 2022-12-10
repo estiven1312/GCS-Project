@@ -1,30 +1,37 @@
 <script>
-const tipoUsuario = "administrador";
-export default {
+import { defineComponent } from "vue";
+import { mapMutations, mapGetters } from "vuex";
+export default defineComponent({
   name: "iniciarsesion",
-  data() {
-    let data = {
-      formularioIniciarSesion: {
-        correoIniciarSesion: "",
-        contraseniaIniciarSesion: "",
+  data: () => {
+    return {
+      usuarioIniciarSesion: {
+        Correo: "",
+        Contrasenia: "",
       },
     };
-    return data;
+  },
+  computed: {
+    ...mapGetters("usuarios", ["verifyIniciarSesion"]),
   },
   methods: {
+    ...mapMutations("autorizacion", ["setAutorizado", "setUsuarioAutorizado"]),
     iniciarSesion() {
-      //if you want to send any data into server before redirection then you can do it here
-      if (tipoUsuario == "administrador") {
-        localStorage.setItem("token-usuario", "administrador");
-        this.$router.push("/cuentasyperfilesadministrador");
-      }
-      if (tipoUsuario == "usuario") {
-        localStorage.setItem("token-usuario", "usuario");
-        this.$router.push("/misperfilesusuario");
+      let verificador = this.verifyIniciarSesion(this.usuarioIniciarSesion);
+      if (verificador.Encontrado == true) {
+        this.setAutorizado(verificador.usuarioAutorizado.Tipo);
+        this.setUsuarioAutorizado(verificador.usuarioAutorizado);
+        if (verificador.usuarioAutorizado.Tipo == "usuario") {
+          this.$router.push("/misperfilesusuario");
+        } else if (verificador.usuarioAutorizado.Tipo == "administrador") {
+          this.$router.push("/cuentasyperfilesadministrador");
+        }
+      } else {
+        alert("El usuario no existe. Vuelva a intentarlo.");
       }
     },
   },
-};
+});
 </script>
 <template>
   <div class="iniciarsesion px-4">
@@ -41,7 +48,11 @@ export default {
           class="col-12 col-md-6 mb-3 m-md-0 d-flex justify-content-center order-0 order-md-1"
         >
           <div class="formulario p-5 rounded-4 w-100">
-            <form class="d-flex flex-column">
+            <form
+              class="d-flex flex-column"
+              method="post"
+              @submit.prevent="iniciarSesion"
+            >
               <h1
                 class="text-white fs-1 text-center lh-base pb-3 m-0 fw-bold text-uppercase"
               >
@@ -61,7 +72,7 @@ export default {
                 type="email"
                 id="correoIniciarSesion"
                 name="correoIniciarSesion"
-                v-model="formularioIniciarSesion.correoIniciarSesion"
+                v-model="usuarioIniciarSesion.Correo"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
@@ -74,7 +85,7 @@ export default {
                 type="password"
                 id="contraseniaIniciarSesion"
                 name="contraseniaIniciarSesion"
-                v-model="formularioIniciarSesion.contraseniaIniciarSesion"
+                v-model="usuarioIniciarSesion.Contrasenia"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
@@ -82,7 +93,6 @@ export default {
                 type="submit"
                 value="Iniciar sesión"
                 class="mt-4 mb-3 formulario__button mx-auto text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100"
-                @click.stop.prevent="iniciarSesion()"
               />
               <p class="text-white fs-5 text-center lh-base pb-2 m-0">
                 ¿No tienes una cuenta?
@@ -99,7 +109,7 @@ export default {
     </div>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .formulario {
   background-image: linear-gradient(
     to bottom right,
@@ -122,5 +132,8 @@ export default {
 }
 .formulario__link {
   color: #47c0f0;
+}
+.zorrito-avatar {
+  max-width: 30rem !important;
 }
 </style>

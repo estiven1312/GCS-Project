@@ -1,25 +1,29 @@
 <script>
-export default {
+import { defineComponent } from "vue";
+import { mapMutations } from "vuex";
+export default defineComponent({
   name: "registrate",
-  data() {
-    let data = {
-      formularioRegistrate: {
-        nombresRegistrate: "",
-        apellidosRegistrate: "",
-        correoRegistrate: "",
-        contraseniaRegistrate: "",
-        celularRegistrate: "",
+  data: () => {
+    return {
+      nuevoUsuario: {
+        Nombres: "",
+        Apellidos: "",
+        Correo: "",
+        Contrasenia: "",
+        TelefonoContacto: "",
+        DNI: "",
+        Tipo: "usuario",
       },
     };
-    return data;
   },
   methods: {
+    ...mapMutations("usuarios", ["addUsuario"]),
     submit() {
-      //if you want to send any data into server before redirection then you can do it here
+      this.addUsuario(this.nuevoUsuario);
       this.$router.push("/iniciarsesion");
     },
   },
-};
+});
 </script>
 <template>
   <div class="registrate px-4">
@@ -36,7 +40,11 @@ export default {
           class="col-12 col-md-6 mb-3 m-md-0 d-flex justify-content-center order-0 order-md-1"
         >
           <div class="formulario p-5 rounded-4 w-100">
-            <form class="d-flex flex-column">
+            <form
+              class="d-flex flex-column"
+              method="post"
+              @submit.prevent="submit"
+            >
               <h1
                 class="text-white fs-1 text-center lh-base pb-3 m-0 fw-bold text-uppercase"
               >
@@ -51,20 +59,20 @@ export default {
                 type="text"
                 id="nombresRegistrate"
                 name="nombresRegistrate"
-                v-model="formularioRegistrate.nombresRegistrate"
+                v-model="nuevoUsuario.Nombres"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
               <label
-                for="apellidoRegistrate"
+                for="apellidosRegistrate"
                 class="text-white fs-5 text-start lh-base py-3"
                 >Apellidos</label
               >
               <input
                 type="text"
-                id="apellidoRegistrate"
-                name="apellidoRegistrate"
-                v-model="formularioRegistrate.apellidosRegistrate"
+                id="apellidosRegistrate"
+                name="apellidosRegistrate"
+                v-model="nuevoUsuario.Apellidos"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
@@ -77,7 +85,7 @@ export default {
                 type="email"
                 id="correoRegistrate"
                 name="correoRegistrate"
-                v-model="formularioRegistrate.correoRegistrate"
+                v-model="nuevoUsuario.Correo"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
@@ -90,28 +98,40 @@ export default {
                 type="password"
                 id="contraseniaRegistrate"
                 name="contraseniaRegistrate"
-                v-model="formularioRegistrate.contraseniaRegistrate"
+                v-model="nuevoUsuario.Contrasenia"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
               <label
-                for="celularRegistrate"
+                for="telefonoContactoRegistrate"
                 class="text-white fs-5 text-start lh-base py-3"
-                >Celular</label
+                >Teléfono de contacto</label
               >
               <input
                 type="tel"
-                id="celularRegistrate"
-                name="celularRegistrate"
-                v-model="formularioRegistrate.celularRegistrate"
+                id="telefonoContactoRegistrate"
+                name="telefonoContactoRegistrate"
+                v-model="nuevoUsuario.TelefonoContacto"
+                class="formulario__input border-0 rounded-pill py-2 px-3"
+                required
+              />
+              <label
+                for="dniRegistrate"
+                class="text-white fs-5 text-start lh-base py-3"
+                >DNI</label
+              >
+              <input
+                type="text"
+                id="dniRegistrate"
+                name="dniRegistrate"
+                v-model="nuevoUsuario.DNI"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
               <input
                 type="submit"
-                value="Registrate"
+                value="Regístrate"
                 class="mt-4 mb-3 formulario__button mx-auto text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100"
-                @click.stop.prevent="submit()"
               />
               <p class="text-white fs-5 text-center lh-base pb-2 m-0">
                 ¿Ya tienes una cuenta?
@@ -128,4 +148,28 @@ export default {
     </div>
   </div>
 </template>
-<style lang="scss"></style>
+<style scoped lang="scss">
+.formulario {
+  background-image: linear-gradient(
+    to bottom right,
+    #040c51 20%,
+    #171e5700 100%
+  );
+  max-width: 30rem;
+}
+.formulario__button {
+  max-width: fit-content;
+  background-color: #182275;
+  white-space: normal;
+  &:hover,
+  &:active {
+    transform: scale(1.1);
+  }
+}
+.formulario__link {
+  color: #47c0f0;
+}
+.zorrito-avatar {
+  max-width: 30rem !important;
+}
+</style>

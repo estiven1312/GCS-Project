@@ -1,5 +1,4 @@
 <script>
-import moment from "moment";
 export default {
   data() {
     return {
@@ -50,11 +49,6 @@ export default {
     cerrarModal: function () {
       this.isModalContainerShow = false;
     },
-    format_date(value) {
-      if (value) {
-        return moment(String(value)).format("DD / MM / YYYY");
-      }
-    },
   },
 };
 </script>
@@ -91,7 +85,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitante.NombresSolicitante }}
+                  {{ solicitante.Nombres }}
                 </div>
               </div>
               <div class="row">
@@ -104,7 +98,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
                 >
-                  {{ solicitante.ApellidosSolicitante }}
+                  {{ solicitante.Apellidos }}
                 </div>
               </div>
               <div class="row">
@@ -118,6 +112,19 @@ export default {
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
                   {{ solicitante.TelefonoContacto }}
+                </div>
+              </div>
+              <div class="row">
+                <div
+                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
+                  :class="perfilText()"
+                >
+                  DNI:
+                </div>
+                <div
+                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
+                >
+                  {{ solicitante.DNI }}
                 </div>
               </div>
               <div class="row">
@@ -143,7 +150,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ format_date(solicitante.FechaInicio) }}
+                  {{ solicitante.FechaInicio }}
                 </div>
               </div>
               <div class="row">
@@ -291,7 +298,7 @@ export default {
     </div>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .formulario {
   background-image: linear-gradient(
     to bottom right,

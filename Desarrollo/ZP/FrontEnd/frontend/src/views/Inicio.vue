@@ -2,11 +2,38 @@
 import StreamingPlatformIcon from "@/components/StreamingPlatformIcon.vue";
 export default {
   name: "Inicio",
-  data() {
+  data: () => {
     return {
-      Color: String,
-      ImageUrl: String,
-      Width: String,
+      plataformas: [
+        {
+          Color: "#f84440",
+          ImageUrl: "netflix-logo.png",
+        },
+        {
+          Color: "#009FF7",
+          ImageUrl: "movistar-logo.png",
+        },
+        {
+          Color: "#05009D",
+          ImageUrl: "disneyplus-logo.png",
+        },
+        {
+          Color: "#FF5400",
+          ImageUrl: "starplus-logo.png",
+        },
+        {
+          Color: "#9200BB",
+          ImageUrl: "hbomax-logo.png",
+        },
+        {
+          Color: "#D0009C",
+          ImageUrl: "primevideo-logo.png",
+        },
+        {
+          Color: "#18D860",
+          ImageUrl: "spotify-logo.png",
+        },
+      ],
     };
   },
   components: {
@@ -25,45 +52,11 @@ export default {
       </p>
       <div class="d-flex pt-2 justify-content-center flex-wrap">
         <StreamingPlatformIcon
-          :Color="'#f84440'"
-          :ImageUrl="'netflix-logo.png'"
-          :Width="'8'"
-          class="m-3"
-        />
-        <StreamingPlatformIcon
-          :Color="'#009FF7'"
-          :ImageUrl="'movistar-logo.png'"
-          :Width="'8'"
-          class="m-3"
-        />
-        <StreamingPlatformIcon
-          :Color="'#05009D'"
-          :ImageUrl="'disneyplus-logo.png'"
-          :Width="'8'"
-          class="m-3"
-        />
-        <StreamingPlatformIcon
-          :Color="'#FF5400'"
-          :ImageUrl="'starplus-logo.png'"
-          :Width="'8'"
-          class="m-3"
-        />
-        <StreamingPlatformIcon
-          :Color="'#9200BB'"
-          :ImageUrl="'hbomax-logo.png'"
-          :Width="'8'"
-          class="m-3"
-        />
-        <StreamingPlatformIcon
-          :Color="'#D0009C'"
-          :ImageUrl="'primevideo-logo.png'"
-          :Width="'8'"
-          class="m-3"
-        />
-        <StreamingPlatformIcon
-          :Color="'#18D860'"
-          :ImageUrl="'spotify-logo.png'"
-          :Width="'8'"
+          v-for="plataforma in plataformas"
+          :key="plataforma.ImageUrl"
+          :Color="plataforma.Color"
+          :ImageUrl="plataforma.ImageUrl"
+          :Width="8"
           class="m-3"
         />
       </div>
@@ -81,19 +74,25 @@ export default {
           <h2 class="text-white fs-2 text-center lh-base text-uppercase pb-2">
             Crea tu cuenta y ten control de todos tus perfiles
           </h2>
-          <button
-            class="button text-white fs-4 text-center lh-base text-uppercase bg-danger border-0 py-2 px-3 rounded-3 fw-semibold mt-2"
+          <router-link to="/registrate">
+            <button
+              class="button text-white fs-4 text-center lh-base text-uppercase bg-danger border-0 py-2 px-3 rounded-3 fw-semibold mt-2"
+            >
+              Registrarme
+            </button></router-link
           >
-            Registrarme
-          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
-<style>
+<style scoped lang="scss">
 .button {
   font-family: "Readex Pro", sans-serif;
+  &:hover,
+  &:active {
+    transform: scale(1.1);
+  }
 }
 .zorrito-avatar {
   max-width: 30rem !important;

@@ -1,22 +1,37 @@
 <script>
 import PerfilUsuario from "@/components/PerfilUsuario.vue";
-export default {
-  name: "MisPerfilesUsuario",
-  data() {
+import { defineComponent } from "vue";
+import { mapGetters, mapState } from "vuex";
+export default defineComponent({
+  name: "misperfilesusuario",
+  data: () => {
     return {
-      Perfil: "",
-      Plataforma: "",
-      Correo: "",
-      Contrasenia: "",
-      FechaInicio: "",
-      TiempoDuracion: "",
-      PIN: "",
+      misPerfiles: [],
+      plataformaSeleccionada: "Todas",
     };
   },
   components: {
     PerfilUsuario,
   },
-};
+  computed: {
+    ...mapState("autorizacion", ["usuarioAutorizado"]),
+    ...mapGetters("perfiles", ["getPerfilesDeUsuario"]),
+  },
+  methods: {
+    filtrarPorPlataforma(plataforma) {
+      this.misPerfiles = this.getPerfilesDeUsuario(
+        this.usuarioAutorizado.DNI,
+        plataforma
+      );
+    },
+  },
+  mounted() {
+    this.misPerfiles = this.getPerfilesDeUsuario(
+      this.usuarioAutorizado.DNI,
+      "Todas"
+    );
+  },
+});
 </script>
 <template>
   <div class="misperfilesusuario px-4">
@@ -31,8 +46,10 @@ export default {
         <select
           class="form-select--width form-select text-black fs-5 me-4 my-2"
           aria-label="Default select example"
+          v-model="plataformaSeleccionada"
         >
-          <option selected class="text-black fs-5">Netflix</option>
+          <option selected class="text-black fs-5">Todas</option>
+          <option value="Netflix" class="text-black fs-5">Netflix</option>
           <option value="Movistar Play" class="text-black fs-5">
             Movistar Play
           </option>
@@ -48,6 +65,7 @@ export default {
         </select>
         <button
           class="formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 my-2"
+          @click="filtrarPorPlataforma(plataformaSeleccionada)"
         >
           Filtrar
         </button>
@@ -55,29 +73,20 @@ export default {
     </div>
     <div class="p-0 mx-md-3 mx-lg-5">
       <PerfilUsuario
-        :Perfil="'Nicole'"
-        :Plataforma="'Netflix'"
-        :Correo="'Bontamaui@gmail.com'"
-        :Contrasenia="'Ayuda123'"
-        :FechaInicio="new Date(2022, 3, 10)"
-        :TiempoDuracion="2"
-        :PIN="'hola192'"
-        class="my-5"
-      />
-      <PerfilUsuario
-        :Perfil="'Nicole'"
-        :Plataforma="'Netflix'"
-        :Correo="'Bontamaui@gmail.com'"
-        :Contrasenia="'Ayuda123'"
-        :FechaInicio="new Date(2022, 3, 10)"
-        :TiempoDuracion="2"
-        :PIN="'hola192'"
+        v-for="miPerfil in misPerfiles"
+        :Perfil="miPerfil.Perfil"
+        :Plataforma="miPerfil.Plataforma"
+        :Correo="miPerfil.Correo"
+        :Contrasenia="miPerfil.Contrasenia"
+        :FechaInicio="miPerfil.FechaInicio"
+        :TiempoDuracion="miPerfil.TiempoDuracion"
+        :PIN="miPerfil.PIN"
         class="my-5"
       />
     </div>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .form-select--width {
   width: inherit !important;
 }

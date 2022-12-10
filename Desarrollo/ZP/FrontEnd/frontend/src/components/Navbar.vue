@@ -1,29 +1,18 @@
 <script>
-export default {
+import { defineComponent } from "vue";
+import { mapMutations, mapState } from "vuex";
+export default defineComponent({
   name: "Navbar",
-  data: () => {
-    return {
-      autorizado: "no-autorizado",
-    };
+  computed: {
+    ...mapState("autorizacion", ["autorizado"]),
   },
   methods: {
-    cerrarSesion: function () {
-      //if you want to send any data into server before redirection then you can do it here
-      localStorage.removeItem("token-usuario");
-      this.$router.push({ path: "iniciarsesion" });
-    },
-    estaAutorizado: function () {
-      if (localStorage.getItem("token-usuario") == "usuario") {
-        this.autorizado = "usuario";
-      } else if (localStorage.getItem("token-usuario") == "administrador") {
-        this.autorizado = "administrador";
-      } else {
-        this.autorizado = "no-autorizado";
-      }
-      return this.autorizado;
+    ...mapMutations("autorizacion", ["setAutorizado"]),
+    cerrarSesion() {
+      this.setAutorizado("no-autorizado");
     },
   },
-};
+});
 </script>
 <template>
   <header class="position-sticky top-0 left-0 z-index-3 p-0">
@@ -59,7 +48,7 @@ export default {
           id="navbarNav"
         >
           <ul class="navbar-nav d-lg-flex align-items-center pt-4 pt-lg-0">
-            <template v-if="estaAutorizado() == 'usuario'">
+            <template v-if="autorizado == 'usuario'">
               <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
                 <router-link
                   to="/misperfilesusuario"
@@ -78,7 +67,7 @@ export default {
                 <router-link
                   to="/iniciarsesion"
                   class="nav-link active fs-5 p-0 fw-bold text-uppercase"
-                  @click="cerrarSesion()"
+                  @click="cerrarSesion"
                 >
                   <button
                     class="bg-black text-white border-white rounded-4 py-2 px-3 fw-bold text-uppercase"
@@ -107,7 +96,7 @@ export default {
                 ></router-link>
               </li>
             </template>
-            <template v-if="estaAutorizado() == 'administrador'">
+            <template v-if="autorizado == 'administrador'">
               <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
                 <router-link
                   to="/cuentasyperfilesadministrador"
@@ -126,7 +115,7 @@ export default {
                 <router-link
                   to="/iniciarsesion"
                   class="nav-link active fs-5 p-0 fw-bold text-uppercase"
-                  @click="cerrarSesion()"
+                  @click="cerrarSesion"
                 >
                   <button
                     class="bg-black text-white border-white rounded-4 py-2 px-3 fw-bold text-uppercase"
@@ -155,7 +144,7 @@ export default {
                 ></router-link>
               </li>
             </template>
-            <template v-else-if="estaAutorizado() == 'no-autorizado'">
+            <template v-else-if="autorizado == 'no-autorizado'">
               <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
                 <router-link
                   to="/"
@@ -204,15 +193,12 @@ export default {
     </nav>
   </header>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 header {
   background-image: linear-gradient(to bottom right, black 50%, #040c51 100%);
 }
 .logo-icon {
   max-width: 8rem;
-}
-* {
-  font-family: "Poppins", sans-serif;
 }
 .nav-link {
   font-family: "Readex Pro", sans-serif;

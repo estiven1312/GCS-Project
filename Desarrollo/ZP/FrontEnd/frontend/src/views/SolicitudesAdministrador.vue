@@ -2,15 +2,16 @@
 import FilaSolicitud from "@/components/FilaSolicitud.vue";
 export default {
   name: "SolicitudesAdministrador",
-  data() {
+  data: () => {
     return {
-      NombresSolicitante: String,
-      ApellidosSolicitante: String,
+      Nombres: String,
+      Apellidos: String,
       TelefonoContacto: String,
+      DNI: String,
       Plataforma: String,
-      FechaInicio: Date,
-      TiempoDuracion: Number,
-      CapturaPago: URL,
+      FechaInicio: String,
+      TiempoDuracion: String,
+      CapturaPago: String,
     };
   },
   components: {
@@ -94,21 +95,23 @@ export default {
         </thead>
         <tbody>
           <FilaSolicitud
-            :NombresSolicitante="'Estiven Salvador'"
-            :ApellidosSolicitante="'Hurtado Santos'"
-            :TelefonoContacto="987654321"
+            :Nombres="'Estiven Salvador'"
+            :Apellidos="'Hurtado Santos'"
+            :TelefonoContacto="'987654321'"
+            :DNI="'78965035'"
             :Plataforma="'Netflix'"
-            :FechaInicio="new Date(2023, 1, 5)"
-            :TiempoDuracion="3"
+            :FechaInicio="'05 / 01 / 2023'"
+            :TiempoDuracion="'3'"
             :CapturaPago="'https://mail.google.com/mail/u/1/#inbox'"
           />
           <FilaSolicitud
-            :NombresSolicitante="'Luz Cristina'"
-            :ApellidosSolicitante="'Martinez Santos'"
-            :TelefonoContacto="965479484"
+            :Nombres="'Luz Cristina'"
+            :Apellidos="'Martinez Santos'"
+            :TelefonoContacto="'965479484'"
+            :DNI="'72164012'"
             :Plataforma="'Spotify'"
-            :FechaInicio="new Date(2022, 12, 24)"
-            :TiempoDuracion="3"
+            :FechaInicio="'24 / 12 / 2022'"
+            :TiempoDuracion="'3'"
             :CapturaPago="'https://mail.google.com/mail/u/1/#inbox'"
           />
         </tbody>
@@ -116,7 +119,7 @@ export default {
     </div>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .form-select--width {
   width: inherit !important;
 }

@@ -2,51 +2,44 @@
 import MetodosDePago from "@/components/MetodosDePago.vue";
 export default {
   name: "solicitarperfilusuario",
-  data() {
-    let data = {
-      FormularioSolicitarPerfilUsuario: {
-        NombresSolicitante: "",
-        ApellidosSolicitante: "",
+  data: () => {
+    return {
+      solicitante: {
+        Nombres: "",
+        Apellidos: "",
         TelefonoContacto: "",
+        DNI: "",
         Plataforma: "Netflix",
         FechaInicio: "",
         TiempoDuracion: 1,
         CapturaPago: "",
       },
     };
-    return data;
   },
   methods: {
     calcularTotalPagar() {
       let precio = 0;
-      switch (this.$data.FormularioSolicitarPerfilUsuario.Plataforma) {
+      switch (this.$data.solicitante.Plataforma) {
         case "Netflix":
-          precio =
-            12 * this.$data.FormularioSolicitarPerfilUsuario.TiempoDuracion;
+          precio = 12 * this.$data.solicitante.TiempoDuracion;
           break;
         case "Movistar Play":
-          precio =
-            5 * this.$data.FormularioSolicitarPerfilUsuario.TiempoDuracion;
+          precio = 5 * this.$data.solicitante.TiempoDuracion;
           break;
         case "Disney Plus":
-          precio =
-            7 * this.$data.FormularioSolicitarPerfilUsuario.TiempoDuracion;
+          precio = 7 * this.$data.solicitante.TiempoDuracion;
           break;
         case "Star Plus":
-          precio =
-            7 * this.$data.FormularioSolicitarPerfilUsuario.TiempoDuracion;
+          precio = 7 * this.$data.solicitante.TiempoDuracion;
           break;
         case "HBO Max":
-          precio =
-            8 * this.$data.FormularioSolicitarPerfilUsuario.TiempoDuracion;
+          precio = 8 * this.$data.solicitante.TiempoDuracion;
           break;
         case "Prime Video":
-          precio =
-            7 * this.$data.FormularioSolicitarPerfilUsuario.TiempoDuracion;
+          precio = 7 * this.$data.solicitante.TiempoDuracion;
           break;
         case "Spotify":
-          precio =
-            7 * this.$data.FormularioSolicitarPerfilUsuario.TiempoDuracion;
+          precio = 7 * this.$data.solicitante.TiempoDuracion;
           break;
       }
       return precio;
@@ -103,6 +96,16 @@ export default {
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text my-auto"
             >
+              DNI:
+            </div>
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
+              71208652
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text my-auto"
+            >
               Plataforma:
             </div>
             <div
@@ -111,7 +114,7 @@ export default {
               <select
                 class="form-select text-black fs-5 w-100"
                 aria-label="Default select example"
-                v-model="FormularioSolicitarPerfilUsuario.Plataforma"
+                v-model="solicitante.Plataforma"
               >
                 <option selected class="text-black fs-5">Netflix</option>
                 <option value="Movistar Play" class="text-black fs-5">
@@ -145,7 +148,7 @@ export default {
                 id="fechaInicio"
                 name="fechaInicio"
                 class="border-0 rounded-pill py-2 px-3 w-100"
-                v-model="FormularioSolicitarPerfilUsuario.FechaInicio"
+                v-model="solicitante.FechaInicio"
                 required
               />
             </div>
@@ -165,7 +168,7 @@ export default {
                 id="tiempoDuracion"
                 name="tiempoDuracion"
                 class="border-0 rounded-pill py-2 px-3 w-100"
-                v-model.number="FormularioSolicitarPerfilUsuario.TiempoDuracion"
+                v-model.number="solicitante.TiempoDuracion"
                 required
               />
             </div>
@@ -194,7 +197,7 @@ export default {
                 id="capturaPago"
                 name="capturaPago"
                 class="border-0 rounded-pill py-2 px-3 w-100"
-                v-model="FormularioSolicitarPerfilUsuario.CapturaPago"
+                v-model="solicitante.CapturaPago"
                 required
               />
             </div>
@@ -217,7 +220,7 @@ export default {
     <div class="my-5 p-0 mx-md-3 mx-lg-5"><MetodosDePago /></div>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .panel-solicitar-perfil {
   max-width: 55rem;
   box-shadow: -20px 20px 30px #ce47f054;

@@ -1,8 +1,11 @@
 import { createStore } from "vuex";
+import autorizacion from "./modules/autorizacion";
+import usuarios from "./modules/usuarios";
+import perfiles from "./modules/perfiles";
 export default createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
+  modules: {
+    autorizacion,
+    usuarios,
+    perfiles,
+  },
 });

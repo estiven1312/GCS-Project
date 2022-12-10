@@ -3,7 +3,7 @@ export default {
   props: {
     Color: String,
     ImageUrl: String,
-    Width: String,
+    Width: Number,
   },
 };
 </script>
@@ -19,7 +19,7 @@ export default {
     />
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .logo-streaming {
   background-color: black;
   border-width: 10px;

@@ -3,12 +3,45 @@ import StreamingPlatformCard from "@/components/StreamingPlatformCard.vue";
 import MetodosDePago from "@/components/MetodosDePago.vue";
 export default {
   name: "Servicios",
-  data() {
+  data: () => {
     return {
-      Color: String,
-      ImageUrl: String,
-      Precio: String,
-      Width: String,
+      plataformas: [
+        {
+          Color: "#f84440",
+          ImageUrl: "netflix-logo.png",
+          Precio: 12,
+        },
+        {
+          Color: "#009FF7",
+          ImageUrl: "movistar-logo.png",
+          Precio: 5,
+        },
+        {
+          Color: "#05009D",
+          ImageUrl: "disneyplus-logo.png",
+          Precio: 7,
+        },
+        {
+          Color: "#FF5400",
+          ImageUrl: "starplus-logo.png",
+          Precio: 7,
+        },
+        {
+          Color: "#9200BB",
+          ImageUrl: "hbomax-logo.png",
+          Precio: 8,
+        },
+        {
+          Color: "#D0009C",
+          ImageUrl: "primevideo-logo.png",
+          Precio: 7,
+        },
+        {
+          Color: "#18D860",
+          ImageUrl: "spotify-logo.png",
+          Precio: 7,
+        },
+      ],
     };
   },
   components: {
@@ -26,72 +59,14 @@ export default {
       <div class="row justify-content-around">
         <div
           class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-4"
+          v-for="plataforma in plataformas"
+          :key="plataforma.ImageUrl"
         >
           <StreamingPlatformCard
-            :Color="'#f84440'"
-            :ImageUrl="'netflix-logo.png'"
-            :Precio="'S/. 12.00'"
-            :Width="'13'"
-          />
-        </div>
-        <div
-          class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-4"
-        >
-          <StreamingPlatformCard
-            :Color="'#009ff7'"
-            :ImageUrl="'movistar-logo.png'"
-            :Precio="'S/. 5.00'"
-            :Width="'13'"
-          />
-        </div>
-        <div
-          class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-4"
-        >
-          <StreamingPlatformCard
-            :Color="'#05009d'"
-            :ImageUrl="'disneyplus-logo.png'"
-            :Precio="'S/. 7.00'"
-            :Width="'13'"
-          />
-        </div>
-        <div
-          class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-4"
-        >
-          <StreamingPlatformCard
-            :Color="'#ff5400'"
-            :ImageUrl="'starplus-logo.png'"
-            :Precio="'S/. 7.00'"
-            :Width="'13'"
-          />
-        </div>
-        <div
-          class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-4"
-        >
-          <StreamingPlatformCard
-            :Color="'#9200bb'"
-            :ImageUrl="'hbomax-logo.png'"
-            :Precio="'S/. 8.00'"
-            :Width="'13'"
-          />
-        </div>
-        <div
-          class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-4"
-        >
-          <StreamingPlatformCard
-            :Color="'#d0009c'"
-            :ImageUrl="'primevideo-logo.png'"
-            :Precio="'S/. 7.00'"
-            :Width="'13'"
-          />
-        </div>
-        <div
-          class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-4"
-        >
-          <StreamingPlatformCard
-            :Color="'#18d860'"
-            :ImageUrl="'spotify-logo.png'"
-            :Precio="'S/. 7.00'"
-            :Width="'13'"
+            :Color="plataforma.Color"
+            :ImageUrl="plataforma.ImageUrl"
+            :Precio="plataforma.Precio"
+            :Width="13"
           />
         </div>
       </div>

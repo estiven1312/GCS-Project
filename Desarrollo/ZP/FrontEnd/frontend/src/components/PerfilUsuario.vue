@@ -1,13 +1,12 @@
 <script>
-import moment from "moment";
 export default {
   props: {
     Perfil: String,
     Plataforma: String,
     Correo: String,
     Contrasenia: String,
-    FechaInicio: Date,
-    TiempoDuracion: Number,
+    FechaInicio: String,
+    TiempoDuracion: String,
     PIN: String,
   },
   methods: {
@@ -45,11 +44,6 @@ export default {
           return "perfil-text--D0009C";
         case "Spotify":
           return "perfil-text--18D860";
-      }
-    },
-    format_date(value) {
-      if (value) {
-        return moment(String(value)).format("DD / MM / YYYY");
       }
     },
   },
@@ -115,7 +109,7 @@ export default {
               Fecha de inicio:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ format_date(FechaInicio) }}
+              {{ FechaInicio }}
             </div>
           </div>
           <div class="row">
@@ -145,7 +139,7 @@ export default {
     </div>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .user-icon-perfil {
   max-width: 20rem;
 }

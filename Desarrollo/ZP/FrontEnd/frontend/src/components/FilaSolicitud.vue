@@ -1,21 +1,14 @@
 <script>
-import moment from "moment";
 export default {
   props: {
-    NombresSolicitante: String,
-    ApellidosSolicitante: String,
+    Nombres: String,
+    Apellidos: String,
     TelefonoContacto: String,
+    DNI: String,
     Plataforma: String,
-    FechaInicio: Date,
-    TiempoDuracion: Number,
-    CapturaPago: URL,
-  },
-  methods: {
-    format_date(value) {
-      if (value) {
-        return moment(String(value)).format("DD / MM / YYYY");
-      }
-    },
+    FechaInicio: String,
+    TiempoDuracion: String,
+    CapturaPago: String,
   },
 };
 </script>
@@ -31,19 +24,19 @@ export default {
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
       data-label="Fecha de inicio"
     >
-      {{ format_date(FechaInicio) }}
+      {{ FechaInicio }}
     </td>
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
       data-label="Nombres del solicitante"
     >
-      {{ NombresSolicitante }}
+      {{ Nombres }}
     </td>
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
       data-label="Apellidos del solicitante"
     >
-      {{ ApellidosSolicitante }}
+      {{ Apellidos }}
     </td>
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
@@ -75,4 +68,14 @@ export default {
     </td>
   </tr>
 </template>
-<style></style>
+<style scoped lang="scss">
+.formulario__button {
+  max-width: fit-content;
+  background-color: #182275;
+  white-space: normal;
+  &:hover,
+  &:active {
+    transform: scale(1.1);
+  }
+}
+</style>

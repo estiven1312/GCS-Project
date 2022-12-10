@@ -5,8 +5,8 @@ export default {
   props: {
     Color: String,
     ImageUrl: String,
-    Precio: String,
-    Width: String,
+    Precio: Number,
+    Width: Number,
   },
   components: {
     StreamingPlatformIcon,
@@ -25,13 +25,13 @@ export default {
     <p class="text-white fs-5 text-center py-2 lh-lg m-0">
       A solo
       <br />
-      <span class="fs-2">{{ Precio }}</span>
+      <span class="fs-2">S/. {{ Precio }}</span>
       <br />
       Al mes
     </p>
   </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .card-streaming {
   width: fit-content;
   padding: 1rem;
