@@ -5,6 +5,15 @@ export default defineComponent({
   name: "Navbar",
   computed: {
     ...mapState("autorizacion", ["autorizado"]),
+    getMainPage() {
+      if (this.autorizado == "usuario") {
+        return "/misperfilesusuario";
+      } else if (this.autorizado == "administrador") {
+        return "/solicitudesadministrador";
+      } else {
+        return "/";
+      }
+    },
   },
   methods: {
     ...mapMutations("autorizacion", ["setAutorizado"]),
@@ -18,7 +27,10 @@ export default defineComponent({
   <header class="position-sticky top-0 left-0 z-index-3 p-0">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid py-3 px-4">
-        <router-link to="/" class="navbar-brand my-0 me-0 p-0 ms-md-3 ms-lg-5">
+        <router-link
+          :to="getMainPage"
+          class="navbar-brand my-0 me-0 p-0 ms-md-3 ms-lg-5"
+        >
           <img
             src="../assets/images/zorrito-icon.svg"
             alt="Ícono de Zorrito Plus"
@@ -98,13 +110,6 @@ export default defineComponent({
             </template>
             <template v-if="autorizado == 'administrador'">
               <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
-                <router-link
-                  to="/cuentasyperfilesadministrador"
-                  class="nav-link active fs-5 p-0 fw-bold text-uppercase"
-                  >Cuentas y perfiles</router-link
-                >
-              </li>
-              <li class="nav-item py-2 py-lg-0 px-0 px-lg-4">
                 <router-link
                   to="/solicitudesadministrador"
                   class="nav-link active fs-5 p-0 fw-bold text-uppercase"

@@ -17,7 +17,6 @@ export default defineComponent({
   },
   computed: {
     ...mapState("autorizacion", ["usuarioAutorizado"]),
-    ...mapState("solicitudes", ["solicitudes"]),
   },
   methods: {
     ...mapMutations("solicitudes", ["addSolicitud"]),

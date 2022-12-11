@@ -24,7 +24,7 @@ export default defineComponent({
         if (verificador.usuarioAutorizado.Tipo == "usuario") {
           this.$router.push("/misperfilesusuario");
         } else if (verificador.usuarioAutorizado.Tipo == "administrador") {
-          this.$router.push("/cuentasyperfilesadministrador");
+          this.$router.push("/solicitudesadministrador");
         }
       } else {
         alert("El usuario no existe. Vuelva a intentarlo.");

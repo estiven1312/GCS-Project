@@ -73,7 +73,8 @@ export default defineComponent({
     </div>
     <div class="p-0 mx-md-3 mx-lg-5">
       <PerfilUsuario
-        v-for="miPerfil in misPerfiles"
+        v-for="(miPerfil, index) in misPerfiles"
+        :key="index"
         :Perfil="miPerfil.Perfil"
         :Plataforma="miPerfil.Plataforma"
         :Correo="miPerfil.Correo"

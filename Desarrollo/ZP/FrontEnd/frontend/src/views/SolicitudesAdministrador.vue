@@ -1,23 +1,31 @@
 <script>
 import FilaSolicitud from "@/components/FilaSolicitud.vue";
-export default {
+import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
+export default defineComponent({
   name: "SolicitudesAdministrador",
   data: () => {
     return {
-      Nombres: String,
-      Apellidos: String,
-      TelefonoContacto: String,
-      DNI: String,
-      Plataforma: String,
-      FechaInicio: String,
-      TiempoDuracion: String,
-      CapturaPago: String,
+      solicitudes: [],
+      plataformaSeleccionada: "Todas",
     };
   },
   components: {
     FilaSolicitud,
   },
-};
+  computed: {
+    ...mapGetters("solicitudes", ["getSolicitudes"]),
+    ...mapGetters("usuarios", ["getUsuario"]),
+  },
+  methods: {
+    filtrarPorPlataforma(plataforma) {
+      this.solicitudes = this.getSolicitudes(plataforma);
+    },
+  },
+  mounted() {
+    this.solicitudes = this.getSolicitudes("Todas");
+  },
+});
 </script>
 <template>
   <div class="solicitudesadministrador px-4">
@@ -32,8 +40,10 @@ export default {
         <select
           class="form-select--width form-select text-black fs-5 me-4 my-2"
           aria-label="Default select example"
+          v-model="plataformaSeleccionada"
         >
-          <option selected class="text-black fs-5">Netflix</option>
+          <option selected class="text-black fs-5">Todas</option>
+          <option value="Netflix" class="text-black fs-5">Netflix</option>
           <option value="Movistar Play" class="text-black fs-5">
             Movistar Play
           </option>
@@ -49,6 +59,7 @@ export default {
         </select>
         <button
           class="formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 my-2"
+          @click="filtrarPorPlataforma(plataformaSeleccionada)"
         >
           Filtrar
         </button>
@@ -95,24 +106,17 @@ export default {
         </thead>
         <tbody>
           <FilaSolicitud
-            :Nombres="'Estiven Salvador'"
-            :Apellidos="'Hurtado Santos'"
-            :TelefonoContacto="'987654321'"
-            :DNI="'78965035'"
-            :Plataforma="'Netflix'"
-            :FechaInicio="'05 / 01 / 2023'"
-            :TiempoDuracion="'3'"
-            :CapturaPago="'https://mail.google.com/mail/u/1/#inbox'"
-          />
-          <FilaSolicitud
-            :Nombres="'Luz Cristina'"
-            :Apellidos="'Martinez Santos'"
-            :TelefonoContacto="'965479484'"
-            :DNI="'72164012'"
-            :Plataforma="'Spotify'"
-            :FechaInicio="'24 / 12 / 2022'"
-            :TiempoDuracion="'3'"
-            :CapturaPago="'https://mail.google.com/mail/u/1/#inbox'"
+            v-for="(solicitud, index) in solicitudes"
+            :key="index"
+            :Nombres="getUsuario(solicitud.DNI).Nombres"
+            :Apellidos="getUsuario(solicitud.DNI).Apellidos"
+            :TelefonoContacto="getUsuario(solicitud.DNI).TelefonoContacto"
+            :DNI="solicitud.DNI"
+            :Plataforma="solicitud.Plataforma"
+            :FechaInicio="solicitud.FechaInicio"
+            :TiempoDuracion="solicitud.TiempoDuracion"
+            :CapturaPago="solicitud.CapturaPago"
+            :Indice="index"
           />
         </tbody>
       </table>

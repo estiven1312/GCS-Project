@@ -20,6 +20,7 @@ export default defineComponent({
     ...mapMutations("usuarios", ["addUsuario"]),
     submit() {
       this.addUsuario(this.nuevoUsuario);
+      alert("Se ha registrado el usuario con éxito.");
       this.$router.push("/iniciarsesion");
     },
   },

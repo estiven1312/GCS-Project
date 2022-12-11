@@ -6,6 +6,9 @@ const routes = [
     path: "/",
     name: "inicio",
     component: Inicio,
+    meta: {
+      title: "Inicio | Zorrito +",
+    },
   },
   {
     path: "/servicios",
@@ -15,6 +18,9 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "servicios" */ "../views/Servicios.vue"),
+    meta: {
+      title: "Servicios | Zorrito +",
+    },
   },
   {
     path: "/iniciarsesion",
@@ -26,6 +32,9 @@ const routes = [
       import(
         /* webpackChunkName: "iniciarsesion" */ "../views/IniciarSesion.vue"
       ),
+    meta: {
+      title: "Iniciar sesión | Zorrito +",
+    },
   },
   {
     path: "/registrate",
@@ -35,6 +44,9 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "registrate" */ "../views/Registrate.vue"),
+    meta: {
+      title: "Regístrate | Zorrito +",
+    },
   },
   {
     path: "/misperfilesusuario",
@@ -46,6 +58,9 @@ const routes = [
       import(
         /* webpackChunkName: "misperfilesusuario" */ "../views/MisPerfilesUsuario.vue"
       ),
+    meta: {
+      title: "Mis perfiles | Zorrito +",
+    },
   },
   {
     path: "/solicitarperfilusuario",
@@ -57,17 +72,9 @@ const routes = [
       import(
         /* webpackChunkName: "solicitarperfilusuario" */ "../views/SolicitarPerfilUsuario.vue"
       ),
-  },
-  {
-    path: "/cuentasyperfilesadministrador",
-    name: "cuentasyperfilesadministrador",
-    // route level code-splitting
-    // this generates a separate chunk (cuentasyperfilesadministrador.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(
-        /* webpackChunkName: "cuentasyperfilesadministrador" */ "../views/CuentasYPerfilesAdministrador.vue"
-      ),
+    meta: {
+      title: "Solicitar perfil | Zorrito +",
+    },
   },
   {
     path: "/solicitudesadministrador",
@@ -79,9 +86,12 @@ const routes = [
       import(
         /* webpackChunkName: "solicitudesadministrador" */ "../views/SolicitudesAdministrador.vue"
       ),
+    meta: {
+      title: "Solicitudes | Zorrito +",
+    },
   },
   {
-    path: "/vermassolicitudesadministrador/:solicitante",
+    path: "/vermassolicitudesadministrador/:solicitud",
     name: "vermassolicitudesadministrador",
     // route level code-splitting
     // this generates a separate chunk (vermassolicitudesadministrador.[hash].js) for this route
@@ -90,12 +100,19 @@ const routes = [
       import(
         /* webpackChunkName: "vermassolicitudesadministrador" */ "../views/VerMasSolicitudesAdministrador.vue"
       ),
+    meta: {
+      title: "Ver más de la solicitud | Zorrito +",
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title}`;
+  next();
 });
 
 export default router;

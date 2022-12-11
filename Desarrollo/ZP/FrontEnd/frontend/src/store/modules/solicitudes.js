@@ -20,9 +20,23 @@ export default {
       },
     ],
   },
+  getters: {
+    getSolicitudes: (state) => (Filtro) => {
+      if (Filtro == "Todas") {
+        return state.solicitudes;
+      } else {
+        return state.solicitudes.filter(
+          (solicitud) => solicitud.Plataforma === Filtro
+        );
+      }
+    },
+  },
   mutations: {
     addSolicitud(state, nuevaSolicitud) {
       state.solicitudes.push(nuevaSolicitud);
+    },
+    deleteSolicitud(state, indiceSolicitudAEliminar) {
+      state.solicitudes.splice(indiceSolicitudAEliminar, 1);
     },
   },
 };

@@ -1,14 +1,24 @@
 <script>
-export default {
+import { defineComponent } from "vue";
+import { mapMutations } from "vuex";
+export default defineComponent({
   data() {
     return {
-      solicitante: JSON.parse(this.$route.params.solicitante),
+      solicitud: JSON.parse(this.$route.params.solicitud),
       isModalContainerShow: false,
+      nuevoPerfil: {
+        Correo: "",
+        Contrasenia: "",
+        Perfil: "",
+        PIN: "",
+      },
     };
   },
   methods: {
-    perfilCard: function () {
-      switch (this.solicitante.Plataforma) {
+    ...mapMutations("perfiles", ["addPerfil"]),
+    ...mapMutations("solicitudes", ["deleteSolicitud"]),
+    perfilCard() {
+      switch (this.solicitud.Plataforma) {
         case "Netflix":
           return "perfil-card--f84440";
         case "Movistar Play":
@@ -25,8 +35,8 @@ export default {
           return "perfil-card--18D860";
       }
     },
-    perfilText: function () {
-      switch (this.solicitante.Plataforma) {
+    perfilText() {
+      switch (this.solicitud.Plataforma) {
         case "Netflix":
           return "perfil-text--f84440";
         case "Movistar Play":
@@ -43,14 +53,38 @@ export default {
           return "perfil-text--18D860";
       }
     },
-    mostrarModal: function () {
+    mostrarModal() {
       this.isModalContainerShow = true;
     },
-    cerrarModal: function () {
+    cerrarModal() {
       this.isModalContainerShow = false;
     },
+    eliminarSolicitud() {
+      this.$router.push("/solicitudesadministrador");
+      this.deleteSolicitud(this.solicitud.Indice);
+    },
+    eliminarSolicitudButton() {
+      alert("Se ha eliminado la solicitud con éxito.");
+      this.eliminarSolicitud();
+    },
+    agregarPerfil() {
+      this.addPerfil({
+        Perfil: this.nuevoPerfil.Perfil,
+        Plataforma: this.solicitud.Plataforma,
+        Correo: this.nuevoPerfil.Correo,
+        Contrasenia: this.nuevoPerfil.Contrasenia,
+        FechaInicio: this.solicitud.FechaInicio,
+        TiempoDuracion: this.solicitud.TiempoDuracion,
+        PIN: this.nuevoPerfil.PIN,
+        DNI: this.solicitud.DNI,
+      });
+      alert("Se ha registrado el perfil con éxito.");
+      this.$refs.formularioPerfil.reset();
+      this.cerrarModal();
+      this.eliminarSolicitud();
+    },
   },
-};
+});
 </script>
 <template>
   <div class="vermassolicitudesadministrador px-4">
@@ -85,7 +119,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitante.Nombres }}
+                  {{ solicitud.Nombres }}
                 </div>
               </div>
               <div class="row">
@@ -98,7 +132,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
                 >
-                  {{ solicitante.Apellidos }}
+                  {{ solicitud.Apellidos }}
                 </div>
               </div>
               <div class="row">
@@ -111,7 +145,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitante.TelefonoContacto }}
+                  {{ solicitud.TelefonoContacto }}
                 </div>
               </div>
               <div class="row">
@@ -124,7 +158,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitante.DNI }}
+                  {{ solicitud.DNI }}
                 </div>
               </div>
               <div class="row">
@@ -137,7 +171,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitante.Plataforma }}
+                  {{ solicitud.Plataforma }}
                 </div>
               </div>
               <div class="row">
@@ -150,7 +184,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitante.FechaInicio }}
+                  {{ solicitud.FechaInicio }}
                 </div>
               </div>
               <div class="row">
@@ -163,7 +197,7 @@ export default {
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitante.TiempoDuracion }}
+                  {{ solicitud.TiempoDuracion }}
                 </div>
               </div>
               <div class="row">
@@ -174,9 +208,9 @@ export default {
                   Captura de pago (URL):
                 </div>
                 <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
+                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto text-break"
                 >
-                  {{ solicitante.CapturaPago }}
+                  {{ solicitud.CapturaPago }}
                 </div>
               </div>
             </div>
@@ -193,6 +227,7 @@ export default {
           </button>
           <button
             type="button"
+            v-on:click="eliminarSolicitudButton"
             class="mt-4 formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 mx-3"
           >
             Eliminar solicitud
@@ -217,39 +252,18 @@ export default {
     <div class="ventanaModalPublicacion">
       <div class="bg-black rounded-4">
         <div class="formulario p-5 rounded-4 w-100">
-          <form class="d-flex flex-column">
+          <form
+            ref="formularioPerfil"
+            method="post"
+            @submit.prevent="agregarPerfil"
+            class="d-flex flex-column"
+          >
             <h1
               class="text-white fs-1 text-center lh-base pb-3 m-0 fw-bold text-uppercase"
             >
               Registrar perfil
             </h1>
             <div class="row">
-              <div class="col-12 col-md-6">
-                <label
-                  for="perfilRegistroPerfil"
-                  class="text-white fs-5 text-start lh-base py-3 d-block"
-                  >Perfil</label
-                >
-                <input
-                  type="text"
-                  id="perfilRegistroPerfil"
-                  name="perfilRegistroPerfil"
-                  class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
-                  required
-                />
-                <label
-                  for="PIN"
-                  class="text-white fs-5 text-start lh-base py-3 d-block"
-                  >PIN</label
-                >
-                <input
-                  type="password"
-                  id="PIN"
-                  name="PIN"
-                  class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
-                  required
-                />
-              </div>
               <div class="col-12 col-md-6">
                 <label
                   for="correoRegistroPerfil"
@@ -260,6 +274,7 @@ export default {
                   type="email"
                   id="correoRegistroPerfil"
                   name="correoRegistroPerfil"
+                  v-model="nuevoPerfil.Correo"
                   class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
                   required
                 />
@@ -272,6 +287,35 @@ export default {
                   type="password"
                   id="contraseniaRegistroPerfil"
                   name="contraseniaRegistroPerfil"
+                  v-model="nuevoPerfil.Contrasenia"
+                  class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
+                  required
+                />
+              </div>
+              <div class="col-12 col-md-6">
+                <label
+                  for="perfilRegistroPerfil"
+                  class="text-white fs-5 text-start lh-base py-3 d-block"
+                  >Perfil</label
+                >
+                <input
+                  type="text"
+                  id="perfilRegistroPerfil"
+                  name="perfilRegistroPerfil"
+                  v-model="nuevoPerfil.Perfil"
+                  class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
+                  required
+                />
+                <label
+                  for="PIN"
+                  class="text-white fs-5 text-start lh-base py-3 d-block"
+                  >PIN</label
+                >
+                <input
+                  type="password"
+                  id="PIN"
+                  name="PIN"
+                  v-model="nuevoPerfil.PIN"
                   class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
                   required
                 />

@@ -9,6 +9,7 @@ export default {
     FechaInicio: String,
     TiempoDuracion: String,
     CapturaPago: String,
+    Indice: Number,
   },
 };
 </script>
@@ -53,7 +54,7 @@ export default {
           :to="{
             name: 'vermassolicitudesadministrador',
             params: {
-              solicitante: JSON.stringify(this.$props),
+              solicitud: JSON.stringify(this.$props),
             },
           }"
           class="nav-link active fs-5 p-0 fw-bold text-uppercase"
@@ -76,6 +77,16 @@ export default {
   &:hover,
   &:active {
     transform: scale(1.1);
+  }
+}
+.solicitudes__cell::before {
+  content: attr(data-label);
+  font-weight: 600;
+  float: left;
+}
+@media (min-width: 768px) {
+  .solicitudes__cell::before {
+    content: "";
   }
 }
 </style>
